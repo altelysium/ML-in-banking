@@ -1,30 +1,35 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+import { RouterView } from "vue-router";
+import Header from "./layout/Header.vue";
+import Sidebar from "./layout/Sidebar.vue";
+export default {
+  components: {
+    Header,
+    Sidebar,
+    RouterView
+  }
+}
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <Header></Header>
+  <main class="main">
+    <Sidebar />
+    <section class="router-content">
+      <RouterView />
+    </section>
+  </main>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<style>
+div {
+  font: 500 16px/16px "DM Sans", sans-serif;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.main {
+  display: flex;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.router-content {
+  padding: 24px;
 }
 </style>
