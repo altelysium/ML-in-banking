@@ -1,8 +1,9 @@
 <script>
 import SidebarOption from '../components/SidebarOption.vue';
-import { SIDEBAR_OPTIONS } from '../constants/svg';
+import { SIDEBAR_OPTIONS } from '../constants/sidebarConstants';
 export default {
   data() {
+    console.log(SIDEBAR_OPTIONS)
     return {
       sidebarOptions: SIDEBAR_OPTIONS,
       routes: {
@@ -22,11 +23,11 @@ export default {
   <aside class="sidebar">
     <h3 class="sidebar__title">Fraud Management</h3>
     <nav class="sidebar-navigation">
-      <SidebarOption :path=routes[optionName.toLowerCase()] v-for="[optionName, svg] in sidebarOptions">
+      <SidebarOption :path=routes[title.toLowerCase()] v-for="{title, svgBody} in sidebarOptions">
         <template #icon>
-          <div v-html="svg"></div>
+          <div v-html="svgBody"></div>
         </template>
-        <template #option-name>{{ optionName }}</template>
+        <template #option-name>{{ title }}</template>
       </SidebarOption>
     </nav>
   </aside>
@@ -51,6 +52,6 @@ export default {
 .sidebar-navigation {
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  gap: 17px;
 }
 </style>
