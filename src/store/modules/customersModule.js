@@ -1,4 +1,5 @@
 import { getCustomers } from "../../services/api/getCustomers.service";
+import { getSearchedCustomers } from "../../services/api/getSearchedCustomers.service";
 
 export const customersModule = {
   state: {
@@ -8,8 +9,8 @@ export const customersModule = {
       skip: 0,
       sortBy: null,
       order: "asc",
-      search: "",
     },
+    searchQuery: "",
   },
   getters: {
     customersData(state) {
@@ -31,9 +32,6 @@ export const customersModule = {
     },
   },
   mutations: {
-    setLoading(state, bool) {
-      state.isLoading = bool;
-    },
     setCustomersData(state, fetchedData) {
       state.fetchedData = fetchedData;
     },
@@ -46,12 +44,26 @@ export const customersModule = {
     setSortingOrder(state, string) {
       state.queryParams.order = string;
     },
+    setSearchQuery(state, string) {
+      state.searchQuery = string;
+    },
   },
   actions: {
     async fetchCustomersData({ state, commit }) {
       try {
         console.log("Query params -", state.queryParams);
         commit("setCustomersData", await getCustomers(state.queryParams));
+      } catch (err) {
+        console.log(`Error: ${err}`);
+      }
+    },
+    async fetchSearchedACustomersData({ state, commit }) {
+      try {
+        commit("setSearchQuery", state.searchQuery);
+        commit(
+          "setCustomersData",
+          await getSearchedCustomers(state.searchQuery),
+        );
       } catch (err) {
         console.log(`Error: ${err}`);
       }

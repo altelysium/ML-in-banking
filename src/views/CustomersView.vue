@@ -58,6 +58,10 @@ export default {
       this.$store.commit("setSortingBy", this.sortingQueryPaths[this.sortingState[0]?.id]);
       this.$store.commit("setSortingOrder", this.sortingState[0]?.desc ? "desc" : "asc");
       this.$store.dispatch("fetchCustomersData");
+    },
+    onSearchValueChange(searchValue) {
+      this.$store.commit("setSearchQuery", searchValue);
+      this.$store.dispatch("fetchSearchedACustomersData");
     }
   },
   mounted() {
@@ -73,7 +77,7 @@ export default {
 <template>
   <section class="customers-page">
     <h2 class="router-content__title">Customer Profile</h2>
-    <CustomersControls />
+    <CustomersControls @set-search-value="onSearchValueChange" />
     <CustomersSheet @get-sorting-state="onSortingChange" :data="sheetRows" :columns="customerParams" />
   </section>
 </template>

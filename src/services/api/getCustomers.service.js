@@ -11,6 +11,6 @@ export async function getCustomers(queryParams) {
   }
   const response = await fetch(url);
   const data = await response.json();
-  console.log(data);
+  console.log(url, data);
   return data;
 }

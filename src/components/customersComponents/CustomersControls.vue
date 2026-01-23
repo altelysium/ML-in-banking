@@ -8,14 +8,23 @@ export default {
     Search,
   },
   data() {
-    return {}
+    return {
+      searchValue: "",
+    }
   },
+  watch: {
+    searchValue(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.$emit('setSearchValue', newValue);
+      }
+    }
+  }
 }
 </script>
 
 <template>
   <div class="components-controls">
-    <Search />
+    <Search @set-search-value="(value) => searchValue = value" />
     <BaseButton buttonValue="Add Customer" />
   </div>
 </template>

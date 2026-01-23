@@ -1,8 +1,10 @@
 <script>
 export default {
   data() {
-    return {}
-  }
+    return {
+      seacrhValue: "",
+    }
+  },
 }
 </script>
 
@@ -15,11 +17,12 @@ export default {
           fill="#8E8E93" />
       </svg>
     </button>
-    <input type="text" placeholder="Search" class="search-wrapper__input">
+    <input @input="$emit('setSearchValue', seacrhValue)" v-model="seacrhValue" type="text" placeholder="Search"
+      class="search-wrapper__input">
   </div>
 </template>
 
-<style>
+<style scoped>
 .search-wrapper {
   display: flex;
   align-items: center;
@@ -41,8 +44,11 @@ export default {
 
 .search-wrapper__input {
   padding: 0;
-  font-size: 16px;
-  line-height: 100%;
+  font: 400 16px/100% "DM Sans";
   border: none;
+}
+
+.search-wrapper__input:focus {
+  outline: none;
 }
 </style>
