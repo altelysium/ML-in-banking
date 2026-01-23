@@ -1,18 +1,16 @@
 <script>
-import BaseButton from './BaseButton.vue';
+import BaseButton from './ui/BaseButton.vue';
 
 export default { // fix style
-  data() {
-    return {
-
-    }
-  },
   components: {
     BaseButton
   },
   props: {
     isNested: Boolean,
-  }
+  },
+  data() {
+    return {}
+  },
 }
 </script>
 
@@ -26,13 +24,13 @@ export default { // fix style
       </p>
       <h4 class="dashboard-element__title">
         <slot name="title"></slot>
-      </h4>      
+      </h4>
     </div>
-    <BaseButton button-value="Analyze" v-if="isNested"/>
+    <BaseButton button-value="Analyze" v-if="isNested" />
   </div>
 </template>
 
-<style> 
+<style>
 .dashboard-element {
   display: flex;
   flex-direction: column;
@@ -42,16 +40,18 @@ export default { // fix style
   border-radius: 4px;
   padding: 48px;
 }
+
 .dashboard-element__stats {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
+
 .dashboard-element__title,
-.dashboard-element__value
- {
+.dashboard-element__value {
   font-weight: 400;
 }
+
 .dashboard-element__value {
   font-size: 48px;
   line-height: 100%;

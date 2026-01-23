@@ -1,9 +1,7 @@
 <script>
 export default {
   data() {
-    return {
-
-    }
+    return {}
   }
 }
 </script>
@@ -28,6 +26,7 @@ export default {
 
 <style scoped>
 .header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;

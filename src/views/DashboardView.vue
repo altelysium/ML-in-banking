@@ -1,18 +1,17 @@
 <script>
 import DashboardElement from '../components/DashboardElement.vue';
-import LoadingScreen from '../components/LoadingScreen.vue';
 import { DASHBOARD_SVG } from '../constants/dashboardConstants';
 
 export default {
+  components: {
+    DashboardElement,
+  },
   data() {
     return {
       dasboardIcons: DASHBOARD_SVG,
     }
   },
   computed: {
-    isLoading() {
-      return this.$store.state.dashboardModule.isLoading;
-    },
     isFetched() {
       return this.$store.state.dashboardModule.isFetched;
     },
@@ -60,10 +59,6 @@ export default {
       }
     },
   },
-  components: {
-    DashboardElement,
-    LoadingScreen,
-  },
   mounted() {
     try {
       this.$store.dispatch("fetchDashboardData");
@@ -75,19 +70,19 @@ export default {
 </script>
 
 <template>
-  <LoadingScreen v-if="isLoading" />
-  <template v-else>
+  <section class="dashboard-page">
     <h2 class="router-content__title">Fraud Management Dashboard</h2>
-    <section class="dashboard">
-      <DashboardElement v-for="({ title, value, icon, isButtonNested }, key) in dashboardElementsData" :style="{ gridArea: key }" :isNested="isButtonNested">
+    <div class="dashboard">
+      <DashboardElement v-for="({ title, value, icon, isButtonNested }, key) in dashboardElementsData"
+        :style="{ gridArea: key }" :isNested="isButtonNested">
         <template #icon>
           <div v-html="icon"></div>
         </template>
         <template #value>{{ value }}</template>
         <template #title>{{ title }}</template>
       </DashboardElement>
-    </section>
-  </template>
+    </div>
+  </section>
 </template>
 
 <style scoped>
@@ -95,6 +90,12 @@ export default {
   color: #4E80D1;
   text-transform: uppercase;
   margin-bottom: 24px;
+}
+
+.dashboard-page {
+  padding: 24px;
+  background-color: #E9EFF2;
+  flex-grow: 2;
 }
 
 .dashboard {

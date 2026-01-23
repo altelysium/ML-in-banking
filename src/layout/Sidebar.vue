@@ -2,8 +2,10 @@
 import SidebarOption from '../components/SidebarOption.vue';
 import { SIDEBAR_OPTIONS } from '../constants/sidebarConstants';
 export default {
+  components: {
+    SidebarOption,
+  },
   data() {
-    console.log(SIDEBAR_OPTIONS)
     return {
       sidebarOptions: SIDEBAR_OPTIONS,
       routes: {
@@ -13,9 +15,6 @@ export default {
       }
     }
   },
-  components: {
-    SidebarOption,
-  }
 }
 </script>
 
@@ -23,7 +22,7 @@ export default {
   <aside class="sidebar">
     <h3 class="sidebar__title">Fraud Management</h3>
     <nav class="sidebar-navigation">
-      <SidebarOption :path=routes[title.toLowerCase()] v-for="{title, svgBody} in sidebarOptions">
+      <SidebarOption :path=routes[title.toLowerCase()] v-for="{ title, svgBody } in sidebarOptions">
         <template #icon>
           <div v-html="svgBody"></div>
         </template>

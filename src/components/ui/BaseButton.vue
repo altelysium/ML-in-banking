@@ -1,12 +1,12 @@
 <script>
-  export default {
-    data() {
-      return {}
-    },
-    props: {
-      buttonValue: String,
-    }
-  }
+export default {
+  props: {
+    buttonValue: String,
+  },
+  data() {
+    return {}
+  },
+}
 </script>
 
 <template>
@@ -23,6 +23,7 @@
   font-size: 14px;
   font-weight: 500;
 }
+
 .button:hover {
   cursor: pointer;
   background-color: #4E80D1;
