@@ -107,11 +107,10 @@ export default {
 
 <style scoped>
 .router-content__title {
-  color: #4E80D1;
   font-size: 20px;
   font-weight: 400;
   padding-left: 24px;
-  margin-bottom: 24px;
+  text-transform: capitalize;
 }
 
 .customers-page {

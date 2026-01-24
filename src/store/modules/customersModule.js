@@ -31,14 +31,11 @@ export const customersModule = {
     },
     totalUsers(state) {
       return state.fetchedData?.total;
-    }
+    },
   },
   mutations: {
     setCustomersData(state, fetchedData) {
       state.fetchedData = fetchedData;
-    },
-    setLimit(state, number) {
-      state.queryParams.limit = number;
     },
     setSortingBy(state, string) {
       state.queryParams.sortBy = string;
@@ -51,7 +48,7 @@ export const customersModule = {
     },
     setLimit(state, string) {
       state.queryParams.limit = string;
-    }
+    },
   },
   actions: {
     async fetchCustomersData({ state, commit }) {

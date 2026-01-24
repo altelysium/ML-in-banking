@@ -86,11 +86,6 @@ export default {
 </template>
 
 <style scoped>
-.router-content__title {
-  color: #4E80D1;
-  text-transform: uppercase;
-  margin-bottom: 24px;
-}
 
 .dashboard-page {
   padding: 24px;
