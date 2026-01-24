@@ -1,5 +1,4 @@
 import { getCustomers } from "../../services/api/getCustomers.service";
-import { getSearchedCustomers } from "../../services/api/getSearchedCustomers.service";
 
 export const customersModule = {
   state: {
@@ -52,7 +51,10 @@ export const customersModule = {
     async fetchCustomersData({ state, commit }) {
       try {
         console.log("Query params -", state.queryParams);
-        commit("setCustomersData", await getCustomers(state.queryParams));
+        commit(
+          "setCustomersData",
+          await getCustomers(state.queryParams, state.searchQuery),
+        );
       } catch (err) {
         console.log(`Error: ${err}`);
       }
@@ -62,7 +64,7 @@ export const customersModule = {
         commit("setSearchQuery", state.searchQuery);
         commit(
           "setCustomersData",
-          await getSearchedCustomers(state.searchQuery),
+          await getCustomers(state.queryParams, state.searchQuery),
         );
       } catch (err) {
         console.log(`Error: ${err}`);

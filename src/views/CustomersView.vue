@@ -1,10 +1,10 @@
 <script>
-import CustomersControls from '../components/customersComponents/CustomersControls.vue';
+import CustomersHeader from '../components/customersComponents/CustomersHeader.vue';
 import CustomersSheet from '../components/customersComponents/CustomersSheet.vue';
 
 export default {
   components: {
-    CustomersControls,
+    CustomersHeader,
     CustomersSheet,
   },
   data() {
@@ -77,7 +77,7 @@ export default {
 <template>
   <section class="customers-page">
     <h2 class="router-content__title">Customer Profile</h2>
-    <CustomersControls @set-search-value="onSearchValueChange" />
+    <CustomersHeader @set-search-value="onSearchValueChange" />
     <CustomersSheet @get-sorting-state="onSortingChange" :data="sheetRows" :columns="customerParams" />
   </section>
 </template>

@@ -1,6 +1,9 @@
-export async function getCustomers(queryParams) {
+export async function getCustomers(queryParams, search) {
   let url = "https://dummyjson.com/users";
   let params = "?";
+  if (search) {
+    params = `/search?q=${search}&`;
+  }
   for (let param in queryParams) {
     if (queryParams[param]) {
       params += `${param}=${queryParams[param]}&`;
