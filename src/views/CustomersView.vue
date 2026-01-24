@@ -1,11 +1,15 @@
 <script>
 import CustomersHeader from '../components/customersComponents/CustomersHeader.vue';
 import CustomersSheet from '../components/customersComponents/CustomersSheet.vue';
+import LimitDropdown from '../components/ui/LimitDropdown.vue';
+import Pagination from '../components/ui/Pagination.vue';
 
 export default {
   components: {
     CustomersHeader,
     CustomersSheet,
+    Pagination,
+    LimitDropdown,
   },
   data() {
     return {
@@ -50,10 +54,21 @@ export default {
     sheetRows() {
       return this.$store.getters.customersData;
     },
+    limit() {
+      return this.$store.state.customersModule.queryParams.limit;
+    },
+    skip() {
+      return this.$store.state.customersModule.queryParams.skip;
+    },
+    // itemsCount() {
+    //   return this.$store.getters.totalUsers;
+    // },
+    // usersPerPage() {
+    //   return this.$store.state.customersModule.queryParams.limit;
+    // },
   },
   methods: {
     onSortingChange(state) {
-      console.log(state)
       this.sortingState = state;
       this.$store.commit("setSortingBy", this.sortingQueryPaths[this.sortingState[0]?.id]);
       this.$store.commit("setSortingOrder", this.sortingState[0]?.desc ? "desc" : "asc");
@@ -61,7 +76,11 @@ export default {
     },
     onSearchValueChange(searchValue) {
       this.$store.commit("setSearchQuery", searchValue);
-      this.$store.dispatch("fetchSearchedACustomersData");
+      this.$store.dispatch("fetchCustomersData");
+    },
+    updateLimit(dropdownValue) {
+      this.$store.commit("setLimit", dropdownValue);
+      this.$store.dispatch("fetchCustomersData");
     }
   },
   mounted() {
@@ -79,6 +98,10 @@ export default {
     <h2 class="router-content__title">Customer Profile</h2>
     <CustomersHeader @set-search-value="onSearchValueChange" />
     <CustomersSheet @get-sorting-state="onSortingChange" :data="sheetRows" :columns="customerParams" />
+    <div class="customers-footer">
+      <!-- <Pagination :limit="limit" :itemsCount="itemsCount" /> -->
+      <LimitDropdown @update-limit="updateLimit" :limit="limit" :label="`Showing ${skip + 1} to ${skip + sheetRows.length} of 240 entries`" />
+    </div>
   </section>
 </template>
 
@@ -98,5 +121,12 @@ export default {
   background-color: #E9EFF2;
   flex-grow: 2;
   max-height: 80vh;
+}
+.customers-footer {
+  display: flex;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  border-top: 1px #C6C6C6 solid;
+  padding: 16px 8px 8px 8px;
 }
 </style>

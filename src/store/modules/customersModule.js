@@ -4,7 +4,7 @@ export const customersModule = {
   state: {
     fetchedData: null,
     queryParams: {
-      limit: 10,
+      limit: "20",
       skip: 0,
       sortBy: null,
       order: "asc",
@@ -29,6 +29,9 @@ export const customersModule = {
       }
       return customersDataArray;
     },
+    totalUsers(state) {
+      return state.fetchedData?.total;
+    }
   },
   mutations: {
     setCustomersData(state, fetchedData) {
@@ -46,20 +49,12 @@ export const customersModule = {
     setSearchQuery(state, string) {
       state.searchQuery = string;
     },
+    setLimit(state, string) {
+      state.queryParams.limit = string;
+    }
   },
   actions: {
     async fetchCustomersData({ state, commit }) {
-      try {
-        console.log("Query params -", state.queryParams);
-        commit(
-          "setCustomersData",
-          await getCustomers(state.queryParams, state.searchQuery),
-        );
-      } catch (err) {
-        console.log(`Error: ${err}`);
-      }
-    },
-    async fetchSearchedACustomersData({ state, commit }) {
       try {
         commit("setSearchQuery", state.searchQuery);
         commit(
