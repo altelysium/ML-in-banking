@@ -17,7 +17,7 @@ export const transactionsModule = {
             cardNumber: user.bank.cardNumber,
             accountNumber: user.bank.iban,
             address: user.address.address,
-            atmLocation: user.address.location,
+            atmLocation: [user.address.coordinates.lng, user.address.coordinates.lat],
           });
         }
       }

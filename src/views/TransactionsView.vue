@@ -1,11 +1,13 @@
 <script>
 import TransactionDetails from '../components/TransactionDetails.vue';
 import TransactionsListElement from '../components/TransactionsListElement.vue';
+import MapContainer from '../components/MapContainer.vue';
 
 export default {
   components: {
     TransactionsListElement,
     TransactionDetails,
+    MapContainer,
   },
   data() {
     return {}
@@ -78,9 +80,6 @@ export default {
       console.log(err);
     }
   },
-  updated() {
-    console.log(this.selectedTransactionData);
-  },
 }
 </script>
 
@@ -103,6 +102,7 @@ export default {
           <div class="transaction-block transaction-block_alt">
             <h3 class="transaction-block__title">ATM</h3>
             <p class="transaction-block__value">{{ selectedTransactionData.address }}</p>
+            <MapContainer :coordinates="selectedTransactionData?.atmLocation"/>
           </div>
         </div>
       </template>
