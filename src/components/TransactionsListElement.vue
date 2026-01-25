@@ -4,11 +4,12 @@ import { computed } from 'vue';
 export default {
   props: {
     data: Object,
+    order: String,
   },
   data() {
     return {
       date: "11/5/2022 3:12 PST",
-      shiftId: "#6055"
+      shiftId: "#6055",
     }
   },
   computed: {
@@ -20,7 +21,7 @@ export default {
 </script>
 
 <template>
-  <li class="transaction">
+  <li class="transaction" @click="$emit('selectTransaction', data)">
     <div class="transaction-user-data">
       <h4 class="transaction-user-data__title">{{ data.fullName }}</h4>
       <p class="transaction-user-data__shift-id">{{ shiftId }}</p>
@@ -28,9 +29,9 @@ export default {
     </div>
     <div class="transaction-data">
       <p class="transaction-data__type">Cash In</p>
-      <p class="transaction-data__order-amount">{{ "$" + data.orderAmount }}</p>
+      <p class="transaction-data__order-amount">{{ data.orderAmount }}</p>
     </div>
-    <p class="transaction__id">{{ data.transactionId }}</p>
+    <p class="transaction__id" :style="{order: order}">{{ data.transactionId }}</p>
   </li>
 </template>
 
@@ -48,6 +49,7 @@ export default {
   flex-direction: column;
   flex-grow: 2;
   justify-content: space-between;
+  order: 1;
 }
 
 .transaction-user-data__title,
@@ -72,6 +74,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 21px;
+  order: 1;
 }
 
 .transaction-data__type {

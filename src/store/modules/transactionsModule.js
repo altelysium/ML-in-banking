@@ -3,6 +3,7 @@ import { getCustomers } from "../../services/api/getCustomers.service";
 export const transactionsModule = {
   state: {
     fetchedData: null,
+    selectedTransactionData: null,
   },
   getters: {
     transactionsData(state) {
@@ -11,10 +12,12 @@ export const transactionsModule = {
         for (let user of state.fetchedData.users) {
           transactionsDataArray.push({
             fullName: `${user.firstName} ${user.lastName}`,
-            orderAmount: user.height,
+            orderAmount: `$${user.height}`,
             transactionId: Math.ceil(user.weight),
             cardNumber: user.bank.cardNumber,
             accountNumber: user.bank.iban,
+            address: user.address.address,
+            atmLocation: user.address.location,
           });
         }
       }
@@ -25,6 +28,9 @@ export const transactionsModule = {
     setTransactionsData(state, fetchedData) {
       state.fetchedData = fetchedData;
     },
+    setSelectedTransactionData(state, data) {
+      state.selectedTransactionData = data;
+    }
   },
   actions: {
     async fetchTransactionsData({ commit }) {
