@@ -17,7 +17,7 @@ export default {
           fill="#8E8E93" />
       </svg>
     </button>
-    <input @input="$emit('setSearchValue', seacrhValue)" v-model="seacrhValue" type="text" placeholder="Search"
+    <input @input="$emit('setSearchValue', seacrhValue)" v-model="seacrhValue" type="text" placeholder="Search" id="search"
       class="search-wrapper__input">
   </div>
 </template>

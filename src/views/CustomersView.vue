@@ -1,4 +1,6 @@
 <script>
+import AddCustomerForm from '../components/AddCustomerForm.vue';
+import CustomerDetails from '../components/CustomerDetails.vue';
 import CustomersSheet from '../components/customersComponents/CustomersSheet.vue';
 import BaseButton from '../components/ui/BaseButton.vue';
 import LimitDropdown from '../components/ui/LimitDropdown.vue';
@@ -12,9 +14,12 @@ export default {
     Pagination,
     LimitDropdown,
     Modal,
+    AddCustomerForm,
+    CustomerDetails,
     Search,
     BaseButton,
   },
+  emits: [],
   data() {
     return {
       customerParams: [
@@ -33,6 +38,10 @@ export default {
         {
           accessorKey: "state",
           header: "State"
+        },
+        {
+          accessorKey: "address",
+          header: "Address"
         },
         {
           accessorKey: "phoneNumber",
@@ -54,6 +63,8 @@ export default {
       sortingState: null,
       isModal: false,
       seacrhValue: "",
+      selectedCustomer: null,
+      isCustomerSelected: false,
     }
   },
   computed: {
@@ -89,12 +100,16 @@ export default {
       this.$store.commit("setLimit", dropdownValue);
       this.$store.dispatch("fetchCustomersData");
     },
+    setSelectedCustomer(data) {
+      this.selectedCustomer = data;
+    },
     activateModal() {
-      return this.isModal = !this.isModal
+      return this.isModal = !this.isModal;
     },
     deactivateModal(bool) {
       this.isModal = bool;
-    }
+      this.isCustomerSelected = bool;
+    },
   },
   mounted() {
     try {
@@ -107,14 +122,20 @@ export default {
 </script>
 
 <template>
-  <Modal v-if="isModal" @deactivate-modal="deactivateModal" title="Add Customer" />
+  <Modal @deactivate-modal="deactivateModal" v-if="isModal"
+    :title="isCustomerSelected ? 'Customer Details' : 'Add Customer'">
+    <CustomerDetails :data="selectedCustomer" :keys="customerParams" v-if="isCustomerSelected" @deactivate-modal="deactivateModal" />
+    <AddCustomerForm @deactivate-modal="deactivateModal" v-else />
+  </Modal>
   <section class="customers-page">
     <h2 class="router-content__title">Customer Profile</h2>
     <div class="components-controls">
       <Search @set-search-value="onSearchValueChange" />
       <BaseButton button-value="Add Customer" @click="activateModal" />
     </div>
-    <CustomersSheet @get-sorting-state="onSortingChange" :data="sheetRows" :columns="customerParams" />
+    <CustomersSheet @get-sorting-state="onSortingChange" @get-selected-customer="setSelectedCustomer"
+      @is-row-selected="(bool) => isCustomerSelected = bool" @activate-modal="(bool) => isModal = bool"
+      :data="sheetRows" :columns="customerParams" />
     <div class="customers-footer">
       <!-- <Pagination :limit="limit" :itemsCount="itemsCount" /> -->
       <LimitDropdown @update-limit="updateLimit" :limit="limit"

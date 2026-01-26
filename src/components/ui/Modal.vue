@@ -26,7 +26,7 @@ export default {
     <div class="modal-wrapper" @click.self="deactivateModal">
       <div class="modal">
         <h2 class="modal__title">{{ title }}</h2>
-        <AddCustomerForm @deactivate-modal="deactivateModal" />
+        <slot></slot>
       </div>
     </div>
   </Teleport>

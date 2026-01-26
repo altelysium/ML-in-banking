@@ -18,6 +18,7 @@ export default defineComponent({
     data: Array,
     columns: Array,
   },
+  emits: ["getSortingState", "getSelectedCustomer", "activateModal", "isRowSelected"],
   data() {
     return {
       sorting: [],
@@ -47,6 +48,11 @@ export default defineComponent({
   methods: {
     toggleSorting(header, event) {
       return header.column.getToggleSortingHandler()?.(event);
+    },
+    getSelectedCustomer(data) {
+      this.$emit('isRowSelected', true);
+      this.$emit('activateModal', true);
+      this.$emit('getSelectedCustomer', data);
     }
   }
 })
@@ -71,7 +77,7 @@ export default defineComponent({
         </tr>
       </thead>
       <tbody class="sheet-body">
-        <tr v-for="(row, index) in table.getRowModel().rows" :key="row.id"
+        <tr v-for="(row, index) in table.getRowModel().rows" :key="row.id" @click="getSelectedCustomer(row.original)"
           :class="!((index + 1) % 2) ? 'sheet-body-row' : 'sheet-body-row sheet-body-row_alt'">
           <td v-for="cell in row.getVisibleCells()" :key="cell.id" class="sheet-body-row__cell">
             <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
