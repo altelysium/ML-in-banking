@@ -10,7 +10,9 @@ export default {
     MapContainer,
   },
   data() {
-    return {}
+    return {
+      scrollY: 0,
+    }
   },
   computed: {
     transactionsData() {
@@ -18,6 +20,9 @@ export default {
     },
     selectedTransactionData() {
       return this.$store.state.transactionsModule.selectedTransactionData;
+    },
+    queryParams() {
+      return this.$store.state.customersModule.queryParams;
     },
     transactionSummary() {
       return {
@@ -39,7 +44,7 @@ export default {
         },
         fifthRow: {
           title: "Bank",
-          description: "AMERICAN EXPRESS INTERNATIONAL (NZ) INC.",
+          description: this.selectedTransactionData?.bankName,
         },
       }
     },
@@ -71,10 +76,19 @@ export default {
   methods: {
     getSelectedTransaction(data) {
       this.$store.commit("setSelectedTransactionData", data);
+    },
+    uploadNewTransactions(e) {
+      const el = e.target;
+      const limit = this.queryParams.limit
+      if (el.scrollTop + el.clientHeight >= el.scrollHeight) {
+        this.$store.commit("setSkip", limit);
+        this.$store.dispatch("fetchTransactionsData", this.queryParams);
+      }
     }
   },
   mounted() {
     try {
+      this.$store.dispatch("resetQueryParams");
       this.$store.dispatch("fetchTransactionsData");
     } catch (err) {
       console.log(err);
@@ -85,9 +99,10 @@ export default {
 
 <template>
   <section class="transactions-page">
-    <aside class="transactions-sidebar">
-      <ul class="transactions-list" v-for="customer in transactionsData">
-        <TransactionsListElement @select-transaction="getSelectedTransaction" :data="customer" order="3" />
+    <aside class="transactions-sidebar" ref="transactionsList" @scroll="uploadNewTransactions">
+      <ul class="transactions-list">
+        <TransactionsListElement v-for="customer in transactionsData" @select-transaction="getSelectedTransaction"
+          :data="customer" order="3" />
       </ul>
     </aside>
     <div class="transactions-container">
@@ -102,7 +117,7 @@ export default {
           <div class="transaction-block transaction-block_alt">
             <h3 class="transaction-block__title">ATM</h3>
             <p class="transaction-block__value">{{ selectedTransactionData.address }}</p>
-            <MapContainer :coordinates="selectedTransactionData?.atmLocation"/>
+            <MapContainer :coordinates="selectedTransactionData?.atmLocation" />
           </div>
         </div>
       </template>
@@ -125,9 +140,12 @@ export default {
 
 .transactions-sidebar {
   padding-top: 24px;
+  overflow-y: auto;
+}
+
+.transactions-list {
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   gap: 4px;
 }
 
@@ -151,6 +169,7 @@ export default {
   flex-direction: column;
   gap: 4px;
 }
+
 .transaction-block_alt {
   flex-grow: 2;
 }

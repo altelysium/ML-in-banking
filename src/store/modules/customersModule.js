@@ -49,6 +49,9 @@ export const customersModule = {
     setLimit(state, string) {
       state.queryParams.limit = string;
     },
+    setSkip(state, string) {
+      state.queryParams.skip += string;
+    },
   },
   actions: {
     async fetchCustomersData({ state, commit }) {
@@ -61,6 +64,13 @@ export const customersModule = {
       } catch (err) {
         console.log(`Error: ${err}`);
       }
+    },
+    resetQueryParams({ commit }) {
+      commit("setSearchQuery", "");
+      commit("setSkip", 0);
+      commit("setLimit", 30);
+      commit("setSortingBy", null);
+      commit("setSortingOrder", null);
     },
   },
 };
