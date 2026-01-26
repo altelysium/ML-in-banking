@@ -1,7 +1,7 @@
 import { getTokens } from "../../services/api/getTokens.service";
 export const authModule = {
   state: {
-    accessToken: localStorage.getItem("token") || "",
+    accessToken: localStorage.getItem("token") || false,
     user: null,
     tokens: null,
   },
@@ -23,12 +23,12 @@ export const authModule = {
     },
   },
   actions: {
-    async login({ state, getters, commit }, {username, password}) {
-      console.log(username);
+    async login({ state, commit }, { username, password }) {
       commit("setTokens", await getTokens(username, password));
-      commit("setAccessToken", state.tokens.accessToken);
-      commit("setUser", state.tokens.username);
-      console.log(getters.isAuth);
+      if (state.tokens.accessToken) {
+        commit("setAccessToken", state.tokens.accessToken);
+        commit("setUser", state.tokens.username);
+      }
     },
   },
 };

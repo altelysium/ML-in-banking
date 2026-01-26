@@ -1,8 +1,10 @@
 <script>
 import BaseButton from '../components/ui/BaseButton.vue';
+import Input from '../components/ui/Input.vue';
 export default {
   components: {
     BaseButton,
+    Input,
   },
   data() {
     return {
@@ -12,8 +14,15 @@ export default {
   },
   methods: {
     getAccessToken() {
+      console.log(this.username, this.password)
       this.$store.dispatch("login", { username: this.username, password: this.password });
     },
+    setUsername(value) {
+      this.username = value;
+    },
+    setPassword(value) {
+      this.password = value
+    }
   },
   mounted() {
     console.log(this.$store.getters.isAuth)
@@ -24,14 +33,8 @@ export default {
 <template>
   <div class="login-container">
     <form class="login-form" action="">
-      <div class="login-input-container">
-        <label for="email">E-mail</label><input v-model.lazy="username" class="login-input-container__input" type="email"
-          name="email" placeholder="Enter E-mail">
-      </div>
-      <div class="login-input-container">
-        <label for="password">Password</label><input v-model.lazy="password" class="login-input-container__input"
-          type="password" placeholder="Enter password" name="password">
-      </div>
+      <Input @send-value="setUsername" type="text" name="username" placeholder="Enter username" label="Username"></Input>
+      <Input @send-value="setPassword" type="password" name="password" placeholder="Enter password" label="Password"></Input>
       <BaseButton buttonValue="Log In" @click="getAccessToken" style="margin-top: 20px"></BaseButton>
     </form>
   </div>
@@ -53,22 +56,4 @@ export default {
   gap: 20px;
 }
 
-.login-input-container {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.login-input-container__input {
-  padding: 0 16px;
-  border: 1px #B5B5B5 solid;
-  border-radius: 2px;
-  background-color: #FFFFFF;
-  height: 40px;
-  box-sizing: border-box;
-}
-
-.login-input-container__input:focus {
-  outline: none;
-}
 </style>

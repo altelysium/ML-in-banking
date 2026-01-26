@@ -1,15 +1,19 @@
 <script>
-import CustomersHeader from '../components/customersComponents/CustomersHeader.vue';
 import CustomersSheet from '../components/customersComponents/CustomersSheet.vue';
+import BaseButton from '../components/ui/BaseButton.vue';
 import LimitDropdown from '../components/ui/LimitDropdown.vue';
+import Modal from '../components/ui/Modal.vue';
 import Pagination from '../components/ui/Pagination.vue';
+import Search from '../components/ui/Search.vue';
 
 export default {
   components: {
-    CustomersHeader,
     CustomersSheet,
     Pagination,
     LimitDropdown,
+    Modal,
+    Search,
+    BaseButton,
   },
   data() {
     return {
@@ -39,7 +43,6 @@ export default {
           header: "Acc Balance"
         },
       ],
-      sortingState: null,
       sortingQueryPaths: {
         cid: "id",
         fullName: "firstName",
@@ -47,7 +50,10 @@ export default {
         stateCode: "address.stateCode",
         phoneNumber: "phone",
         balance: "address.postalCode",
-      }
+      },
+      sortingState: null,
+      isModal: false,
+      seacrhValue: "",
     }
   },
   computed: {
@@ -75,12 +81,20 @@ export default {
       this.$store.dispatch("fetchCustomersData");
     },
     onSearchValueChange(searchValue) {
+      this.searchValue = searchValue;
       this.$store.commit("setSearchQuery", searchValue);
       this.$store.dispatch("fetchCustomersData");
     },
     updateLimit(dropdownValue) {
       this.$store.commit("setLimit", dropdownValue);
       this.$store.dispatch("fetchCustomersData");
+    },
+    activateModal() {
+      return this.isModal = !this.isModal
+    },
+    deactivateModal(bool) {
+      this.isModal = bool;
+      console.log(bool)
     }
   },
   mounted() {
@@ -94,23 +108,36 @@ export default {
 </script>
 
 <template>
+  <Modal v-if="isModal" @close-modal="deactivateModal" title="Add Customer" />
   <section class="customers-page">
     <h2 class="router-content__title">Customer Profile</h2>
-    <CustomersHeader @set-search-value="onSearchValueChange" />
+    <div class="components-controls">
+      <Search @set-search-value="onSearchValueChange" />
+      <BaseButton button-value="Add Customer" @click="activateModal" />
+    </div>
     <CustomersSheet @get-sorting-state="onSortingChange" :data="sheetRows" :columns="customerParams" />
     <div class="customers-footer">
       <!-- <Pagination :limit="limit" :itemsCount="itemsCount" /> -->
-      <LimitDropdown @update-limit="updateLimit" :limit="limit" :label="`Showing ${skip + 1} to ${skip + sheetRows.length} of 240 entries`" />
+      <LimitDropdown @update-limit="updateLimit" :limit="limit"
+        :label="`Showing ${skip + 1} to ${skip + sheetRows.length} of 240 entries`" />
     </div>
   </section>
 </template>
 
-<style scoped>
+<style>
 .router-content__title {
   font-size: 20px;
   font-weight: 400;
   padding-left: 24px;
   text-transform: capitalize;
+}
+
+.components-controls {
+  padding: 8px 48px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #F9F9F9;
+  border-top: 1px #B5B5B5 solid;
 }
 
 .customers-page {
@@ -121,6 +148,7 @@ export default {
   flex-grow: 2;
   max-height: 80vh;
 }
+
 .customers-footer {
   display: flex;
   justify-content: space-between;

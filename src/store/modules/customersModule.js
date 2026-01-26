@@ -1,4 +1,5 @@
 import { getCustomers } from "../../services/api/getCustomers.service";
+import { postCustomer } from "../../services/api/postCustomer.service";
 
 export const customersModule = {
   state: {
@@ -10,6 +11,7 @@ export const customersModule = {
       order: "asc",
     },
     searchQuery: "",
+    newCustomer: null,
   },
   getters: {
     customersData(state) {
@@ -23,7 +25,7 @@ export const customersModule = {
             state: user.address.stateCode,
             address: user.address.address,
             phoneNumber: user.phone,
-            balance: user.address.postalCode + ".00",
+            balance: "$" + user.address.postalCode + ".00",
           });
         }
       }
@@ -52,6 +54,9 @@ export const customersModule = {
     setSkip(state, string) {
       state.queryParams.skip += string;
     },
+    setNewCustomer(state, object) {
+      state.newCustomer = object;
+    },
   },
   actions: {
     async fetchCustomersData({ state, commit }) {
@@ -65,10 +70,17 @@ export const customersModule = {
         console.log(`Error: ${err}`);
       }
     },
+    async postCustomer({ state }) {
+      try {
+        await postCustomer(state.newCustomer);
+      } catch (err) {
+        console.log(err);
+      }
+    },
     resetQueryParams({ commit }) {
       commit("setSearchQuery", "");
       commit("setSkip", 0);
-      commit("setLimit", 30);
+      commit("setLimit", "30");
       commit("setSortingBy", null);
       commit("setSortingOrder", null);
     },
