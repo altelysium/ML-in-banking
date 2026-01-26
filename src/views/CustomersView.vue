@@ -94,7 +94,6 @@ export default {
     },
     deactivateModal(bool) {
       this.isModal = bool;
-      console.log(bool)
     }
   },
   mounted() {
@@ -108,7 +107,7 @@ export default {
 </script>
 
 <template>
-  <Modal v-if="isModal" @close-modal="deactivateModal" title="Add Customer" />
+  <Modal v-if="isModal" @deactivate-modal="deactivateModal" title="Add Customer" />
   <section class="customers-page">
     <h2 class="router-content__title">Customer Profile</h2>
     <div class="components-controls">

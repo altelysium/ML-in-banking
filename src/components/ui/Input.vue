@@ -19,7 +19,7 @@ export default {
 <template>
   <div class="input-container" :class="{ 'input-container_modal': isModal }" :style="style">
     <label class="input-container__label" :class="{ 'input-container__label_modal': isModal }" :for="name">{{ label }}</label><input @input="$emit('sendValue', value)"
-      v-model="value" class="input-container__input" :class="{ 'input-container__input_modal': isModal }" :required="isModal" :type="type"
+      v-model="value" class="input-container__input" :class="{ 'input-container__input_modal': isModal }" :required="isModal" :type="type" :id="name"
       :name="name" :placeholder="placeholder">
   </div>
 </template>
