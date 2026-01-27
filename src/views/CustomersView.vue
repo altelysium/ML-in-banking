@@ -2,6 +2,7 @@
 import AddCustomerForm from '../components/AddCustomerForm.vue';
 import CustomerDetails from '../components/CustomerDetails.vue';
 import CustomersSheet from '../components/customersComponents/CustomersSheet.vue';
+import Alert from '../components/ui/Alert.vue';
 import BaseButton from '../components/ui/BaseButton.vue';
 import LimitDropdown from '../components/ui/LimitDropdown.vue';
 import Modal from '../components/ui/Modal.vue';
@@ -18,6 +19,7 @@ export default {
     CustomerDetails,
     Search,
     BaseButton,
+    Alert
   },
   emits: [],
   data() {
@@ -125,8 +127,9 @@ export default {
   <Modal @deactivate-modal="deactivateModal" v-if="isModal"
     :title="isCustomerSelected ? 'Customer Details' : 'Add Customer'">
     <CustomerDetails :data="selectedCustomer" :keys="customerParams" v-if="isCustomerSelected" @deactivate-modal="deactivateModal" />
-    <AddCustomerForm @deactivate-modal="deactivateModal" v-else />
+    <AddCustomerForm @deactivate-modal="deactivateModal" v-else :alert-ref="this.$refs.CustomAlert" />
   </Modal>
+  <Alert message="Customer has been added successfully!" ref="CustomAlert"/>
   <section class="customers-page">
     <h2 class="router-content__title">Customer Profile</h2>
     <div class="components-controls">

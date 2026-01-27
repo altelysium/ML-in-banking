@@ -8,6 +8,9 @@ export default {
     BaseButton,
   },
   emits: ["deactivateModal"],
+  props: {
+    alertRef: Object,
+  },
   data() {
     return {
       customer: {
@@ -59,6 +62,7 @@ export default {
       this.$store.commit("setNewCustomer", this.customer);
       this.$store.dispatch("postCustomer");
       this.deactivateModal();
+      this.alertRef.showAlert();
       this.isError = false;
     },
     deactivateModal() {
