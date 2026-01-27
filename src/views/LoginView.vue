@@ -56,4 +56,10 @@ export default {
   gap: 20px;
 }
 
+@media (max-width: 450px) {
+.login-form {
+  width: 80%;
+  gap: 15px;
+}
+}
 </style>

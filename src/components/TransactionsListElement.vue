@@ -5,6 +5,8 @@ export default {
   props: {
     data: Object,
     order: String,
+    isHeader: Boolean,
+    randomizerResult: Number,
   },
   data() {
     return {
@@ -12,26 +14,26 @@ export default {
       shiftId: "#6055",
     }
   },
-  computed: {
-    fullName() {
-      // return `${this.data.firstName} ${this.data.lastName}`
-    }
-  },
 }
 </script>
 
 <template>
-  <li class="transaction" @click="$emit('selectTransaction', data)">
+  <li :class="isHeader ? 'transaction transaction_header' : 'transaction'" @click="$emit('selectTransaction', data)">
     <div class="transaction-user-data">
       <h4 class="transaction-user-data__title">{{ data.fullName }}</h4>
       <p class="transaction-user-data__shift-id">{{ shiftId }}</p>
       <p class="transaction-user-data__date">{{ date }}</p>
     </div>
     <div class="transaction-data">
-      <p class="transaction-data__type">Cash In</p>
-      <p class="transaction-data__order-amount">{{ data.orderAmount }}</p>
+      <p
+        :class="randomizerResult > 0.5 ? 'transaction-data__type' : 'transaction-data__type transaction-data__type_alt'">
+        {{ randomizerResult > 0.5 ? "Cash In" : "Cash Out" }}</p>
+      <p
+        :class="isHeader ? 'transaction-data__order-amount transaction-data__order-amount_header' : 'transaction-data__order-amount'">
+        {{ data.orderAmount }}</p>
     </div>
-    <p class="transaction__id" :style="{order: order}">{{ data.transactionId }}</p>
+    <p :class="randomizerResult > 0.5 ? 'transaction__id' : 'transaction__id transaction__id_alt'"
+      :style="{ order: order }">{{ data.transactionId }}</p>
   </li>
 </template>
 
@@ -44,6 +46,10 @@ export default {
   cursor: pointer;
 }
 
+.transaction_header {
+  padding: 16px;
+}
+
 .transaction-user-data {
   display: flex;
   flex-direction: column;
@@ -52,9 +58,17 @@ export default {
   order: 1;
 }
 
+.transaction-user-data__title {
+  white-space: nowrap;
+}
+
 .transaction-user-data__title,
 .transaction-data__order-amount {
   font-weight: 700;
+}
+
+.transaction-data__order-amount_header {
+  font-size: 24px;
 }
 
 .transaction-user-data__shift-id {
@@ -75,19 +89,26 @@ export default {
   flex-direction: column;
   gap: 21px;
   order: 1;
+  align-items: end;
 }
 
 .transaction-data__type {
   font: 400 12px/100% "DM Sans";
   background-color: #EDEDED;
-  color: #974F4F;
+  color: #A3A3A3;
   padding: 2px 4px;
   text-align: center;
+  width: 60px;
+}
+
+.transaction-data__type_alt {
+  color: #974F4F;
 }
 
 .transaction-data__order-amount {
   color: #6C757D;
 }
+
 .transaction__id {
   display: flex;
   justify-content: center;
@@ -97,5 +118,10 @@ export default {
   background-color: #FFB648;
   color: #FFFFFF;
   border-radius: 2px;
+}
+
+.transaction__id {
+  background-color: #E3F0C0;
+  color: #4CAF50;
 }
 </style>

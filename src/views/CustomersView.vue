@@ -1,7 +1,7 @@
 <script>
 import AddCustomerForm from '../components/AddCustomerForm.vue';
 import CustomerDetails from '../components/CustomerDetails.vue';
-import CustomersSheet from '../components/customersComponents/CustomersSheet.vue';
+import CustomersSheet from '../components/CustomersSheet.vue';
 import Alert from '../components/ui/Alert.vue';
 import BaseButton from '../components/ui/BaseButton.vue';
 import LimitDropdown from '../components/ui/LimitDropdown.vue';
@@ -147,7 +147,7 @@ export default {
   </section>
 </template>
 
-<style>
+<style scoped>
 .router-content__title {
   font-size: 20px;
   font-weight: 400;
@@ -169,14 +169,43 @@ export default {
   padding-top: 24px;
   background-color: #E9EFF2;
   flex-grow: 2;
-  max-height: 80vh;
+  max-height: calc(100vh - 104px);
+  width: 100%;
 }
 
 .customers-footer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: #FFFFFF;
   border-top: 1px #C6C6C6 solid;
   padding: 16px 8px 8px 8px;
+}
+
+@media (max-width: 1170px) {
+  .customers-page {
+    height: calc(100vh - 74px);
+    max-height: none;
+    width: calc(100vw - 100%);
+  }
+}
+@media (max-width: 975px) {
+  .customers-footer {
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 625px) {
+  .components-controls {
+    padding: 8px 24px;
+  }
+}
+@media (max-width: 425px) {
+  .components-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 </style>

@@ -46,9 +46,24 @@ export default {
   padding: 0;
   font: 400 16px/100% "DM Sans";
   border: none;
+  width: 100%;
 }
 
 .search-wrapper__input:focus {
   outline: none;
+}
+
+
+@media (max-width: 625px) {
+  .search-wrapper {
+    width: 180px;
+    gap: 6px;
+    height: 34px;
+  }
+}
+@media (max-width: 425px) {
+  .search-wrapper {
+    width: 100%;
+  }
 }
 </style>

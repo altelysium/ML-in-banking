@@ -48,4 +48,14 @@ export default {
 .limit-container__dropdown:focus {
   outline: none;
 }
+
+@media (max-width: 500px) {
+  .limit-container {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .limit-container__dropdown {
+    width: 100%;
+  }
+}
 </style>

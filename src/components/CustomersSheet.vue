@@ -6,7 +6,7 @@ import {
   useVueTable,
   getSortedRowModel,
 } from '@tanstack/vue-table'
-import SortingIcon from '../ui/SortingIcon.vue';
+import SortingIcon from './ui/SortingIcon.vue';
 
 
 export default defineComponent({
@@ -92,6 +92,7 @@ export default defineComponent({
 .customers-sheet-container {
   padding: 16px 8px 0 8px;
   background-color: #FFFFFF;
+  flex-grow: 2;
   overflow-y: auto;
   font-weight: 400;
 }
@@ -133,5 +134,25 @@ export default defineComponent({
   padding: 12px 16px;
   border: none;
   text-align: left;
+  white-space: nowrap;
+}
+
+@media (max-width: 1170px) {
+
+  .customers-sheet-container,
+  .sheet-header-row-cell {
+    font-size: 14px;
+  }
+
+  .sheet-body-row__cell,
+  .sheet-header-row-cell-wrapper {
+    padding: 9px 12px;
+  }
+}
+@media (max-width: 550px) {
+  .sheet-header-row-cell,
+  .sheet-body-row__cell {
+    font-size: 12px;
+  }
 }
 </style>

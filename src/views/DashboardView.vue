@@ -74,23 +74,20 @@ export default {
     <h2 class="router-content__title">Fraud Management Dashboard</h2>
     <div class="dashboard">
       <DashboardElement v-for="({ title, value, icon, isButtonNested }, key) in dashboardElementsData"
-        :style="{ gridArea: key }" :isNested="isButtonNested">
-        <template #icon>
-          <div v-html="icon"></div>
-        </template>
-        <template #value>{{ value }}</template>
-        <template #title>{{ title }}</template>
+        :style="{ gridArea: key }" :isNested="isButtonNested" :description="String(value)" :title="title">
+        <div v-html="icon"></div>
       </DashboardElement>
     </div>
   </section>
 </template>
 
 <style scoped>
-
 .dashboard-page {
   padding: 24px;
   background-color: #E9EFF2;
   flex-grow: 2;
+  height: calc(100vh - 128px);
+  overflow-y: auto;
 }
 
 .dashboard {
@@ -102,5 +99,24 @@ export default {
     "processedTransactions allTransactions approvalRate pendingApproval"
     "processedTransactions approvedTransactions rejectedTransactions postponedApproval"
     "processedTransactions approvedTransactions rejectedTransactions postponedApproval";
+  box-sizing: border-box;
+}
+
+@media (max-width: 1170px) {
+  .dashboard-page {
+    height: calc(100vh - 100px);
+  }
+
+  .dashboard {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding: 16px;
+    height: calc(100vh - 82px);
+  }
 }
 </style>

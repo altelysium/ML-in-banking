@@ -40,4 +40,11 @@ div {
 .main {
   display: flex;
 }
+
+@media (max-width: 768px) {
+  .router-content__title {
+    margin-bottom: 16px;
+    font-size: 16px;
+  }
+}
 </style>

@@ -104,4 +104,23 @@ export default {
   border: none;
   font: 400 14px/140% "DM Sans";
 }
+
+@media (max-width: 1170px) {
+  .pagination__button {
+    height: 30px;
+    width: 30px;
+  }
+}
+
+@media (max-width: 500px) {
+  .pagination {
+    display: flex;
+    gap: 6px;
+  }
+
+  .pagination__button {
+    height: 24px;
+    width: 24px;
+  }
+}
 </style>

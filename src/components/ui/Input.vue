@@ -18,9 +18,10 @@ export default {
 
 <template>
   <div class="input-container" :class="{ 'input-container_modal': isModal }" :style="style">
-    <label class="input-container__label" :class="{ 'input-container__label_modal': isModal }" :for="name">{{ label }}</label><input @input="$emit('sendValue', value)"
-      v-model="value" class="input-container__input" :class="{ 'input-container__input_modal': isModal }" :required="isModal" :type="type" :id="name"
-      :name="name" :placeholder="placeholder">
+    <label class="input-container__label" :class="{ 'input-container__label_modal': isModal }" :for="name">{{ label
+    }}</label><input @input="$emit('sendValue', value)" v-model="value" class="input-container__input"
+      :class="{ 'input-container__input_modal': isModal }" :required="isModal" :type="type" :id="name" :name="name"
+      :placeholder="placeholder">
   </div>
 </template>
 
@@ -45,6 +46,7 @@ export default {
   font: 500 20px/28px "DM Sans";
   padding: 0 16px;
   border: 1px #B5B5B5 solid;
+  height: 40px;
   border-radius: 2px;
   background-color: #FFFFFF;
   box-sizing: border-box;
@@ -57,5 +59,16 @@ export default {
 
 .input-container__input:focus {
   outline: none;
+}
+
+@media (max-width: 460px) {
+  .input-container__label_modal {
+    font-size: 16px;
+  }
+
+  .input-container__input_modal {
+    height: 24px;
+    width: 180px;
+  }
 }
 </style>

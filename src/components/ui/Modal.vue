@@ -41,8 +41,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -57,5 +57,17 @@ export default {
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 24px;
+}
+
+@media (max-width: 1280px) {
+  .modal {
+    width: 50%;
+  }
+}
+
+@media (max-width: 724px) {
+  .modal {
+    width: 80%;
+  }
 }
 </style>

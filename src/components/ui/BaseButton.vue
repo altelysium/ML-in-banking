@@ -30,4 +30,9 @@ export default {
   color: #FFFFFF;
   transition: 0.5s;
 }
+@media (max-width: 625px) {
+  .button {
+    padding: 8px 14px;
+  }
+}
 </style>
