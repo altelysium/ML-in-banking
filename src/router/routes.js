@@ -33,7 +33,8 @@ export const router = createRouter({
 router.beforeEach(async (to, from) => {
   if (!store.getters.isAuth && to.name !== "Login") {
     return { name: "Login" };
-  } else if (store.getters.isAuth && to.name === "Login") {
+  }
+  if (store.getters.isAuth && to.name === "Login") {
     return from;
   }
 });

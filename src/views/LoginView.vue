@@ -13,9 +13,9 @@ export default {
     }
   },
   methods: {
-    getAccessToken() {
-      console.log(this.username, this.password)
-      this.$store.dispatch("login", { username: this.username, password: this.password });
+    async getAccessToken() {
+      await this.$store.dispatch("login", { username: this.username, password: this.password });
+      this.$router.push("/customers");
     },
     setUsername(value) {
       this.username = value;
