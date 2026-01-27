@@ -52,7 +52,7 @@ export const customersModule = {
       state.queryParams.limit = string;
     },
     setSkip(state, string) {
-      state.queryParams.skip += string;
+      state.queryParams.skip = string;
     },
     setNewCustomer(state, object) {
       state.newCustomer = object;

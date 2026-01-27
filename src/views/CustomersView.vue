@@ -77,12 +77,12 @@ export default {
     skip() {
       return this.$store.state.customersModule.queryParams.skip;
     },
-    // itemsCount() {
-    //   return this.$store.getters.totalUsers;
-    // },
-    // usersPerPage() {
-    //   return this.$store.state.customersModule.queryParams.limit;
-    // },
+    itemsCount() {
+      return this.$store.getters.totalUsers;
+    },
+    usersPerPage() {
+      return this.$store.state.customersModule.queryParams.limit;
+    },
   },
   methods: {
     onSortingChange(state) {
@@ -137,7 +137,7 @@ export default {
       @is-row-selected="(bool) => isCustomerSelected = bool" @activate-modal="(bool) => isModal = bool"
       :data="sheetRows" :columns="customerParams" />
     <div class="customers-footer">
-      <!-- <Pagination :limit="limit" :itemsCount="itemsCount" /> -->
+      <Pagination :limit="limit" :itemsCount="itemsCount" />
       <LimitDropdown @update-limit="updateLimit" :limit="limit"
         :label="`Showing ${skip + 1} to ${skip + sheetRows.length} of 240 entries`" />
     </div>
