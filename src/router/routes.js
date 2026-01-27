@@ -27,9 +27,8 @@ const routes = [
   { path: "/login", name: "Login", component: LoginView },
 ];
 export const router = createRouter({
-  history: createWebHistory("/ML-in-banking/"),
+  history: createWebHistory(),
   routes,
-  
 });
 router.beforeEach(async (to, from) => {
   if (!store.getters.isAuth && to.name !== "Login") {
