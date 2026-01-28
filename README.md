@@ -75,3 +75,21 @@ Make sure you have installed:
    ```bash
    npm run build
    ```
+
+### Development server
+
+1. Start the development server with Vite:
+   ```bash
+   npm run dev
+   ```
+   or
+   ```code
+   yarn dev
+   ```
+   The application will be available at:
+   ```code
+   http://localhost:5173
+   ```
+   For authorization use this credintials:
+   Login: emilys
+   Password: emilyspass
