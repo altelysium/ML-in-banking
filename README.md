@@ -1,6 +1,6 @@
 # ML in banking App
 
-Deploy: https://altelysium.github.io/
+Deploy: https://altelysium.github.io/ML-in-banking
 
 ---
 
