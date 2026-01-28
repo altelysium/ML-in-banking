@@ -27,7 +27,7 @@ const routes = [
   { path: "/login", name: "Login", component: LoginView },
 ];
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 router.beforeEach(async (to, from) => {

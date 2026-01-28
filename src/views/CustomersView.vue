@@ -58,9 +58,10 @@ export default {
         cid: "id",
         fullName: "firstName",
         city: "address.city",
-        stateCode: "address.stateCode",
+        state: "address.state",
         phoneNumber: "phone",
         balance: "address.postalCode",
+        address: "address.address"
       },
       sortingState: null,
       isModal: false,
@@ -142,7 +143,7 @@ export default {
     <div class="customers-footer">
       <Pagination :limit="limit" :itemsCount="itemsCount" />
       <LimitDropdown @update-limit="updateLimit" :limit="limit"
-        :label="`Showing ${skip + 1} to ${skip + sheetRows.length} of 240 entries`" />
+        :label="`Showing ${skip + 1} to ${skip + sheetRows.length} of ${itemsCount} entries`" />
     </div>
   </section>
 </template>
