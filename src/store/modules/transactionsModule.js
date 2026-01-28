@@ -4,7 +4,7 @@ export const transactionsModule = {
   state: {
     fetchedData: null,
     selectedTransactionData: null,
-    transactionsDataArray: []
+    transactionsDataArray: [],
   },
   getters: {
     transactionsData(state) {
@@ -24,6 +24,9 @@ export const transactionsModule = {
       }
       return state.transactionsDataArray;
     },
+    totalTransactions(state) {
+      return state.fetchedData.total;
+    }
   },
   mutations: {
     setTransactionsData(state, fetchedData) {
@@ -31,7 +34,7 @@ export const transactionsModule = {
     },
     setSelectedTransactionData(state, data) {
       state.selectedTransactionData = data;
-    }
+    },
   },
   actions: {
     async fetchTransactionsData({ commit }, queryParams) {

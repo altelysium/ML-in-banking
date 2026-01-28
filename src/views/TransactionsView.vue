@@ -78,6 +78,9 @@ export default {
     windowWidth() {
       return this.$store.state.windowWidth;
     },
+    itemsCount() {
+      return this.$store.getters.totalTransactions;
+    },
   },
   methods: {
     getSelectedTransaction(data) {
@@ -89,9 +92,9 @@ export default {
     },
     uploadNewTransactions(e) {
       const el = e.target;
-      const limit = this.queryParams.limit
-      if (el.scrollTop + el.clientHeight >= el.scrollHeight) {
-        this.$store.commit("setSkip", limit);
+      const limit = this.queryParams.limit;
+      if (el.scrollTop + el.clientHeight >= el.scrollHeight && this.queryParams.skip < this.itemsCount) {
+        this.$store.commit("setSkip", (Number(limit) + this.queryParams.skip));
         this.$store.dispatch("fetchTransactionsData", this.queryParams);
       }
     },
@@ -146,7 +149,8 @@ export default {
               <MapContainer :coordinates="selectedTransactionData?.atmLocation" />
             </div>
           </div>
-          <BaseButton button-value="Close" v-if="isVisible" @click="closeWindow" style="margin: 30px 0; width: 200px; align-self: center;" />
+          <BaseButton button-value="Close" v-if="isVisible" @click="closeWindow"
+            style="margin: 30px 0; width: 200px; align-self: center;" />
         </template>
       </div>
     </Teleport>
@@ -164,7 +168,7 @@ export default {
   width: 100%;
   display: flex;
   box-sizing: border-box;
-  height: 100vh;
+  height: calc(100vh - 80px);
   overflow-y: auto;
   flex-grow: 2;
 }
@@ -232,7 +236,7 @@ export default {
     width: 100%;
     height: calc(100% - 50px);
   }
-  
+
   .transaction-block {
     padding: 12px;
   }

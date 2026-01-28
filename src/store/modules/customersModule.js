@@ -22,7 +22,7 @@ export const customersModule = {
             cid: user.id,
             fullName: `${user.firstName} ${user.lastName}`,
             city: user.address.city,
-            state: user.address.stateCode,
+            state: user.address.state,
             address: user.address.address,
             phoneNumber: user.phone,
             balance: "$" + user.address.postalCode + ".00",

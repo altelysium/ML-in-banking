@@ -3,10 +3,11 @@ export async function getCustomers(queryParams, search) {
   let params = "?";
   if (search) {
     params = `/search?q=${search}&`;
-  }
-  for (let param in queryParams) {
-    if (queryParams[param]) {
-      params += `${param}=${queryParams[param]}&`;
+  } else {
+    for (let param in queryParams) {
+      if (queryParams[param]) {
+        params += `${param}=${queryParams[param]}&`;
+      }
     }
   }
   if (params.length > 1) {
