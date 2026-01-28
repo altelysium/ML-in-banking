@@ -1,7 +1,5 @@
-# Vue Dashboard Application
+# ML in banking App
 
-This project is a frontend web application built with **Vue** and **Vite**.  
-It provides user management, transaction tracking, and map visualization features with a clean and responsive UI.
 Deploy: https://altelysium.github.io/
 
 ---
