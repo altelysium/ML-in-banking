@@ -12,6 +12,7 @@ export default {
     return {
       date: "11/5/2022 3:12 PST",
       shiftId: "#6055",
+      randomizer: this.randomizerResult,
     }
   },
 }
@@ -26,13 +27,13 @@ export default {
     </div>
     <div class="transaction-data">
       <p
-        :class="randomizerResult > 0.5 ? 'transaction-data__type' : 'transaction-data__type transaction-data__type_alt'">
-        {{ randomizerResult > 0.5 ? "Cash In" : "Cash Out" }}</p>
+        :class="randomizer > 0.5 ? 'transaction-data__type' : 'transaction-data__type transaction-data__type_alt'">
+        {{ randomizer > 0.5 ? "Cash In" : "Cash Out" }}</p>
       <p
         :class="isHeader ? 'transaction-data__order-amount transaction-data__order-amount_header' : 'transaction-data__order-amount'">
         {{ data.orderAmount }}</p>
     </div>
-    <p :class="randomizerResult > 0.5 ? 'transaction__id' : 'transaction__id transaction__id_alt'"
+    <p :class="randomizer > 0.5 ? 'transaction__id' : 'transaction__id transaction__id_alt'"
       :style="{ order: order }">{{ data.transactionId }}</p>
   </li>
 </template>

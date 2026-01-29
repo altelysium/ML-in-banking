@@ -1,7 +1,7 @@
 <script>
 import { RouterView } from "vue-router";
-import Header from "./layout/Header.vue";
-import Sidebar from "./layout/Sidebar.vue";
+import Header from "./components/Header.vue";
+import Sidebar from "./components/Sidebar.vue";
 export default {
   computed: {
     isLoading() {

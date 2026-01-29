@@ -1,9 +1,15 @@
 <script>
-import { SIDEBAR_OPTIONS } from '../constants/sidebarConstants';
+import CustomerIcon from './icons/CustomerIcon.vue';
+import DashboardIcon from './icons/DashboardIcon.vue';
+import TransaferAltIcon from './icons/TransaferAltIcon.vue';
 export default {
+  components: {
+    CustomerIcon,
+    DashboardIcon,
+    TransaferAltIcon
+  },
   data() {
     return {
-      sidebarOptions: SIDEBAR_OPTIONS,
       routes: {
         dashboard: "/",
         customers: "/customers",
@@ -16,6 +22,25 @@ export default {
     isContracted() {
       return this.windowWidth > 768 && this.$route.path != '/transactions';
     },
+    isAuth() {
+      return this.$store.getters.isAuth;
+    },
+    sidebarOptions() {
+      return {
+        dashboard: {
+          title: "Dashboard",
+          icon: DashboardIcon,
+        },
+        customers: {
+          title: "Customers",
+          icon: CustomerIcon,
+        },
+        transactions: {
+          title: "Transactions",
+          icon: TransaferAltIcon,
+        },
+      }
+    }
   },
   methods: {
     updateWidth() {
@@ -33,11 +58,11 @@ export default {
 </script>
 
 <template>
-  <aside class="sidebar" :style="isContracted ? 'width: 224px' : 'width: auto'">
+  <aside v-if="isAuth" class="sidebar" :style="isContracted ? 'width: 224px' : 'width: auto'">
     <h3 class="sidebar__title" v-if="isContracted">Fraud Management</h3>
     <nav class="sidebar-navigation">
-      <RouterLink :to=routes[title.toLowerCase()] class="sidebar-option" v-for="{ title, svgBody } in sidebarOptions">
-        <div v-html="svgBody"></div>
+      <RouterLink :to=routes[title.toLowerCase()] class="sidebar-option" v-for="{ title, icon } in sidebarOptions">
+        <component :is="icon" />
         <p class="sidebar-navigation" v-if="isContracted">{{ title }}</p>
       </RouterLink>
     </nav>
@@ -54,6 +79,7 @@ export default {
   height: calc(100vh - 80px);
   width: 224px;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .sidebar__title {

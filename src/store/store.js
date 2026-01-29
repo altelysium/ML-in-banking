@@ -12,15 +12,11 @@ export const store = createStore({
     authModule,
   },
   state: {
-    isAuth: false,
     windowWidth: window.innerWidth,
   },
   mutations: {
-    setIsAuth(state, bool) {
-      state.isAuth = bool;
-    },
     setWindowWidth(state, number) {
       state.windowWidth = number;
-    }
-  }
+    },
+  },
 });

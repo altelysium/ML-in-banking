@@ -1,14 +1,16 @@
 <script>
+import { icon } from 'leaflet';
 import BaseButton from './ui/BaseButton.vue';
 
-export default { // fix style
+export default {
   components: {
-    BaseButton
+    BaseButton,
   },
   props: {
     isNested: Boolean,
     description: String,
     title: String,
+    icon: Object,
   },
   data() {
     return {}
@@ -20,7 +22,7 @@ export default { // fix style
 <template>
   <div class="dashboard-element">
     <div class="dashboard-element__stats">
-      <slot></slot>
+      <component :is="icon" />
       <p class="dashboard-element__desc">
         {{ description }}
       </p>

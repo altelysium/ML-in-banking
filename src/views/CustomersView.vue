@@ -183,11 +183,16 @@ export default {
   padding: 16px 8px 8px 8px;
 }
 
+@media (max-width: 1250px) {
+  .customers-page {
+    width: calc(100vw - 100%);
+  }
+}
+
 @media (max-width: 1170px) {
   .customers-page {
     height: calc(100vh - 74px);
     max-height: none;
-    width: calc(100vw - 100%);
   }
 }
 @media (max-width: 975px) {

@@ -1,15 +1,26 @@
 <script>
 import DashboardElement from '../components/DashboardElement.vue';
-import { DASHBOARD_SVG } from '../constants/dashboardConstants';
+import CheckIcon from '../components/icons/CheckIcon.vue';
+import CrossIcon from '../components/icons/CrossIcon.vue';
+import PercentIcon from '../components/icons/PercentIcon.vue';
+import PostponedIcon from '../components/icons/PostponedIcon.vue';
+import ProcessedIcon from '../components/icons/ProcessedIcon.vue';
+import SandclocksIcon from '../components/icons/SandclocksIcon.vue';
+import TransferIcon from '../components/icons/TransferIcon.vue';
 
 export default {
   components: {
     DashboardElement,
+    ProcessedIcon,
+    TransferIcon,
+    CrossIcon,
+    CheckIcon,
+    SandclocksIcon,
+    PercentIcon,
+    PostponedIcon,
   },
   data() {
-    return {
-      dasboardIcons: DASHBOARD_SVG,
-    }
+    return {}
   },
   computed: {
     isFetched() {
@@ -20,42 +31,42 @@ export default {
         processedTransactions: {
           title: "Processed Transactions",
           value: this.$store.getters.allTransactions,
-          icon: this.dasboardIcons.processedTransactions.svgBody,
+          icon: ProcessedIcon,
         },
         allTransactions: {
           title: "All Transactions",
           value: this.$store.getters.allTransactions,
-          icon: this.dasboardIcons.allTransactions.svgBody,
+          icon: TransferIcon,
         },
         approvalRate: {
           title: "Approval Rate",
           value: ((this.$store.getters.approvedTransactions / this.$store.getters.allTransactions) *
             100
           ).toFixed(1) + "%",
-          icon: this.dasboardIcons.approvalRate.svgBody,
+          icon: PercentIcon,
         },
         pendingApproval: {
           title: "Pending Approval",
           value: this.$store.getters.pendingApproval,
-          icon: this.dasboardIcons.pendingApproval.svgBody,
+          icon: SandclocksIcon,
         },
         approvedTransactions: {
           title: "Approved Transactions",
           value: this.$store.getters.approvedTransactions,
-          icon: this.dasboardIcons.approvedTransactions.svgBody,
+          icon: CheckIcon,
         },
         rejectedTransactions: {
           title: "Rejected Transactions",
           value: this.$store.getters.rejectedTransactions,
-          icon: this.dasboardIcons.rejectedTransactions.svgBody,
+          icon: CrossIcon,
           isButtonNested: true,
         },
         postponedApproval: {
           title: "Postponed Approval",
           value: this.$store.getters.allTransactions - this.$store.getters.approvedTransactions - this.$store.getters.rejectedTransactions,
-          icon: this.dasboardIcons.postponedApproval.svgBody,
+          icon: PostponedIcon,
           isButtonNested: true,
-        }
+        },
       }
     },
   },
@@ -74,8 +85,7 @@ export default {
     <h2 class="router-content__title">Fraud Management Dashboard</h2>
     <div class="dashboard">
       <DashboardElement v-for="({ title, value, icon, isButtonNested }, key) in dashboardElementsData"
-        :style="{ gridArea: key }" :isNested="isButtonNested" :description="String(value)" :title="title">
-        <div v-html="icon"></div>
+        :style="{ gridArea: key }" :isNested="isButtonNested" :description="String(value)" :title="title" :icon="icon">
       </DashboardElement>
     </div>
   </section>

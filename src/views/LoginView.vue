@@ -24,17 +24,16 @@ export default {
       this.password = value
     }
   },
-  mounted() {
-    console.log(this.$store.getters.isAuth)
-  }
 }
 </script>
 
 <template>
   <div class="login-container">
     <form class="login-form" action="">
-      <Input @send-value="setUsername" type="text" name="username" placeholder="Enter username" label="Username"></Input>
-      <Input @send-value="setPassword" type="password" name="password" placeholder="Enter password" label="Password"></Input>
+      <Input @send-value="setUsername" type="text" name="username" placeholder="Enter username"
+        label="Username"></Input>
+      <Input @send-value="setPassword" type="password" name="password" placeholder="Enter password"
+        label="Password"></Input>
       <BaseButton buttonValue="Log In" @click="getAccessToken" style="margin-top: 20px"></BaseButton>
     </form>
   </div>
@@ -43,6 +42,7 @@ export default {
 <style>
 .login-container {
   width: 100%;
+  height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,9 +57,15 @@ export default {
 }
 
 @media (max-width: 450px) {
-.login-form {
-  width: 80%;
-  gap: 15px;
+  .login-form {
+    width: 80%;
+    gap: 15px;
+  }
 }
+
+@media (max-width: 1170px) {
+  .login-container {
+  height: calc(100vh - 50px);
+  }
 }
-</style>
+  </style>
